@@ -9,13 +9,9 @@ public:
         }
         for(int i=1;i<=s.length()-ind;i++){
             string sub=s.substr(ind,i);
-            
-            cout<<sub<<endl;
             string rsub=sub;
-            reverse(rsub.begin(),rsub.end());
-            
+            reverse(rsub.begin(),rsub.end());   
             if(sub!=rsub){
-                cout<<"na "<<sub<<endl;
                 continue;
             }
             ds.push_back(sub);
