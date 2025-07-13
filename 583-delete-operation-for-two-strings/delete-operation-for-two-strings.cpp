@@ -11,8 +11,6 @@ public:
         int n2=word2.size();
         vector<vector<int>> dp(n1,vector<int>(n2,-1));
         int c=f(n1-1,n2-1,word1,word2,dp);
-        cout<<c;
-        if(n1==n2) return 2*(n1-c);
-        return (max(n1,n2)-c)+(min(n1,n2)-c);
+        return (n1+n2-2*c);
     }
 };
