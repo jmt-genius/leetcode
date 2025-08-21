@@ -1,27 +1,22 @@
 class Solution {
 public:
-    bool f(int i, int j, int ind, int n, int m, vector<vector<char>>& board, string& word, vector<vector<int>>& visited) {
-        // If we've checked all characters in the word, return true
+    bool f(int i, int j, int ind, int n, int m, vector<vector<char>>& board, string& word, vector<vector<int>>& dp) {
         if (ind == word.size()) {
             return true;
         }
         
-        // If out of bounds or the current cell does not match the character, return false
-        if (i < 0 || i >= n || j < 0 || j >= m || visited[i][j] || board[i][j] != word[ind]) {
+        if (i < 0 || i >= n || j < 0 || j >= m || dp[i][j] || board[i][j] != word[ind]) {
             return false;
         }
         
-        // Mark this cell as visited
-        visited[i][j] = 1;
+        dp[i][j] = 1;
         
-        // Explore all four directions
-        bool found = f(i + 1, j, ind + 1, n, m, board, word, visited) ||  // down
-                     f(i - 1, j, ind + 1, n, m, board, word, visited) ||  // up
-                     f(i, j + 1, ind + 1, n, m, board, word, visited) ||  // right
-                     f(i, j - 1, ind + 1, n, m, board, word, visited);    // left
+        bool found = f(i + 1, j, ind + 1, n, m, board, word, dp) ||  
+                     f(i - 1, j, ind + 1, n, m, board, word, dp) ||  
+                     f(i, j + 1, ind + 1, n, m, board, word, dp) ||  
+                     f(i, j - 1, ind + 1, n, m, board, word, dp);    
         
-        // Unmark this cell as visited for other paths
-        visited[i][j] = 0;
+        dp[i][j] = 0;
         
         return found;
     }
@@ -30,13 +25,12 @@ public:
         int n = board.size();
         int m = board[0].size();
         
-        vector<vector<int>> visited(n, vector<int>(m, 0));  // Keeps track of visited cells
+        vector<vector<int>> dp(n, vector<int>(m, 0));
         
-        // Try to find the word starting from each cell
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (board[i][j] == word[0]) {  // Found the first letter
-                    if (f(i, j, 0, n, m, board, word, visited)) {
+                if (board[i][j] == word[0]) {
+                    if (f(i, j, 0, n, m, board, word, dp)) {
                         return true;
                     }
                 }
