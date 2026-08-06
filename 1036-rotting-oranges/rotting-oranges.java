@@ -14,9 +14,7 @@ class Solution {
                 if (grid[i][j] == 2) {
                     queue.offer(new int[]{i, j, 0}); // row, col, time
                     vis[i][j] = 2;
-                } else {
-                    vis[i][j] = 0;
-                }
+                } 
             }
         }
 
@@ -24,7 +22,6 @@ class Solution {
         int[] dCol = {0, 1, 0, -1};
 
         int time = 0;
-
         while (!queue.isEmpty()) {
             int[] curr = queue.poll();
             int row = curr[0];
